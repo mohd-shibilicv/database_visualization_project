@@ -61,11 +61,17 @@ export const drawDataPoints = (
         .attr('class', 'data-point')
         .attr('transform', d => {
             const centroid = path.centroid(d.feature);
-            return `translate(${centroid[0]},${centroid[1]})`;
+            return isNaN(centroid[0]) || isNaN(centroid[1]) 
+                ? 'translate(-1000,-1000)' // Move off-screen if NaN
+                : `translate(${centroid[0]},${centroid[1]})`;
         })
         .attr('r', d => Math.sqrt(d.insightCount) * 2)
         .attr('fill', d => `rgb(${Math.round(d.avgIntensity * 25)}, 0, ${Math.round(d.avgLikelihood * 25)})`)
         .style('pointer-events', 'all')
         .on('mouseover', (event, d) => showTooltip(event, d))
-        .on('mouseout', hideTooltip);
+        .on('mouseout', hideTooltip)
+        .style('visibility', d => {
+            const centroid = path.centroid(d.feature);
+            return isNaN(centroid[0]) || isNaN(centroid[1]) ? 'hidden' : 'visible';
+        });
 };
