@@ -12,6 +12,7 @@ const Tooltip: React.FC = () => (
             borderRadius: '5px',
             pointerEvents: 'none'
         }}
+        className='dark:text-black'
     />
 );
 

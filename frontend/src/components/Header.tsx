@@ -1,8 +1,12 @@
 // import React from 'react'
 
+import { ModeToggle } from "./ModeToggle"
+
 const Header = () => {
   return (
-    <div>Header</div>
+    <div>
+      <ModeToggle />
+    </div>
   )
 }
 
