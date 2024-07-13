@@ -122,7 +122,6 @@ def get_country():
     pipeline = [
         {"$group": {"_id": "$country", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
-        {"$limit": 10},
     ]
     result = list(db.aggregate(pipeline))
     return jsonify(result)
@@ -135,7 +134,6 @@ def get_topics():
     pipeline = [
         {"$group": {"_id": "$topic", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
-        {"$limit": 10},
     ]
     result = list(db.aggregate(pipeline))
     return jsonify(result)
@@ -160,7 +158,6 @@ def get_city():
     pipeline = [
         {"$group": {"_id": "$city", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
-        {"$limit": 10},
     ]
     result = list(db.aggregate(pipeline))
     return jsonify(result)

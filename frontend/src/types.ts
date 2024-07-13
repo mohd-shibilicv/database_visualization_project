@@ -21,7 +21,7 @@ export interface DataItem {
 }
 
 export interface Filters {
-  end_years?: number[];
+  end_years?: string[];
   topics?: string[];
   sectors?: string[];
   regions?: string[];
@@ -40,9 +40,3 @@ export interface FilterPanelProps {
   filters: Filters;
   onFilterChange: (newFilters: Partial<Filters>) => void;
 }
-
-export interface OptionType {
-  value: string | number;
-  label: string | number;
-}
-

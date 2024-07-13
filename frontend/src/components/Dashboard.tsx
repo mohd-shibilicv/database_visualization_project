@@ -8,6 +8,7 @@ import YearChart from "./charts/YearChart";
 import CountryChart from "./charts/CountryChart";
 import TopicsChart from "./charts/TopicsChart";
 import { fetchData, fetchFilters } from "../services/api";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [data, setData] = useState<DataItem[]>([]);
@@ -52,6 +53,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <FilterPanel filters={filters} onFilterChange={handleFilterChange} />
       <div className="charts-container">
+        <Link to="/table">View Data Table</Link>
         <IntensityChart data={data} />
         <LikelihoodChart data={data} />
         <RelevanceChart data={data} />

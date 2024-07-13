@@ -1,31 +1,54 @@
 import React from 'react';
-import Select, { SingleValue, ActionMeta } from 'react-select';
-import { FilterPanelProps, OptionType } from '../types';
+import { FilterPanelProps } from '../types';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
 
 const FilterPanel: React.FC<FilterPanelProps> = ({ filters, onFilterChange }) => {
-  const handleChange = (
-    selectedOption: SingleValue<OptionType>,
-    actionMeta: ActionMeta<OptionType>
-  ) => {
-    if (selectedOption && actionMeta.name) {
-      onFilterChange({ [actionMeta.name]: selectedOption.value });
-    }
+  const handleChange = (value: string, filterName: string) => {
+    onFilterChange({ [filterName]: value });
+  };
+
+  // Function to filter out empty values and create SelectItem components
+  const createSelectItems = (options: string[]) => {
+    return options
+      .filter(option => option !== null && option !== undefined && option !== '')
+      .map(option => (
+        <SelectItem key={option} value={option}>
+          {option}
+        </SelectItem>
+      ));
   };
 
   return (
-    <div className="filter-panel">
-      <Select<OptionType>
-        name="end_year"
-        options={filters.end_years?.map(year => ({ value: year, label: year }))}
-        onChange={handleChange}
-        placeholder="Select End Year"
-      />
-      <Select<OptionType>
-        name="topic"
-        options={filters.topics?.map(topic => ({ value: topic, label: topic }))}
-        onChange={handleChange}
-        placeholder="Select Topic"
-      />
+    <div className="w-full flex justify-center items-center gap-2 my-2">
+      <Select onValueChange={(value) => handleChange(value, 'end_year')}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select End Year" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {createSelectItems(filters.end_years || [])}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+
+      <Select onValueChange={(value) => handleChange(value, 'topic')}>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Select Topic" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {createSelectItems(filters.topics || [])}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      
       {/* Add more Select components for other filters */}
     </div>
   );
