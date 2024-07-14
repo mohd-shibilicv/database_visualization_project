@@ -1,12 +1,12 @@
 export interface DataItem {
-  end_year: string;
+  end_year: number;
   intensity: number;
   sector: string;
   topic: string;
   insight: string;
   url: string;
   region: string;
-  start_year: string;
+  start_year: number;
   impact: string;
   added: string;
   published: string;
@@ -21,15 +21,14 @@ export interface DataItem {
 }
 
 export interface Filters {
-  end_years?: string[];
-  topics?: string[];
-  sectors?: string[];
-  regions?: string[];
-  pest?: string[];
-  sources?: string[];
-  swot?: string[];
-  countries?: string[];
-  cities?: string[];
+  endYear?: string;
+  topic?: string;
+  sector?: string;
+  region?: string;
+  pestle?: string;
+  source?: string;
+  swot?: string;
+  country?: string;
 }
 
 export interface ChartProps {

@@ -45,10 +45,9 @@ const Globe: React.FC<GlobeProps> = ({ data }) => {
                     width: '100%',
                     height: '100%',
                     overflow: 'hidden',
-                    border: 'none',
                     backgroundColor: 'transparent'
                 }}
-                className='rounded-[50px]'
+                className='rounded-[50px] border border-gray-200 dark:border-gray-800'
             />
             <Tooltip />
         </>
