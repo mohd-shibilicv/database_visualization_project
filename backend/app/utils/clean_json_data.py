@@ -34,4 +34,4 @@ def clean_swot_json_data(json_data, cleaned_json_data):
 
 
 if __name__ == "__main__":
-    clean_swot_json_data("jsondata.json", "cleaned_json_data.json")
+    clean_swot_json_data("your_json_data.json", "cleaned_json_data.json")
