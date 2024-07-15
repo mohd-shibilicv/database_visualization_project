@@ -1,18 +1,18 @@
 import React from 'react';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ScatterChart, Scatter, PieChart, Pie, Cell } from 'recharts';
+import { ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ScatterChart, Scatter, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
 import { CustomTooltip, CustomYearTooltip } from './CustomTooltips';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658'];
 
-export const IntensityChart: React.FC<{ data: any[] }> = ({ data }) => (
+export const TopicDistributionChart: React.FC<{ data: any[] }> = ({ data }) => (
   <ResponsiveContainer width="100%" height={300}>
-    <BarChart data={data}>
+    <BarChart data={data} layout="vertical" className="capitalize">
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis type='number' />
+      <XAxis type="number" />
+      <YAxis type="category" dataKey="name" />
       <Tooltip content={<CustomTooltip />} />
       <Legend />
-      <Bar dataKey="intensity" name="Intensity" fill="#8884d8" />
+      <Bar dataKey="value" name="Count" fill="#8884d8" />
     </BarChart>
   </ResponsiveContainer>
 );

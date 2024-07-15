@@ -2,15 +2,16 @@ import { useMemo } from 'react';
 import { DataItem } from '../../../types';
 
 export const useChartData = (filteredData: DataItem[]) => {
-  const intensityData = useMemo(() => {
-    const topicIntensities = filteredData.reduce((acc, item) => {
-      const key = item.topic || "N/A";
-      acc[key] = (acc[key] || 0) + item.intensity;
+  const topicDistributionData = useMemo(() => {
+    const topicCounts = filteredData.reduce((acc, item) => {
+      const key = item.topic || "Other";
+      acc[key] = (acc[key] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-    return Object.entries(topicIntensities)
-      .map(([name, intensity]) => ({ name, intensity }))
-      .sort((a, b) => b.intensity - a.intensity)
+
+    return Object.entries(topicCounts)
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value)
       .slice(0, 10);
   }, [filteredData]);
 
@@ -50,9 +51,9 @@ export const useChartData = (filteredData: DataItem[]) => {
   );
 
   return {
-    intensityData,
-    likelihoodVsRelevanceData,
+    topicDistributionData,
     sectorDistributionData,
+    likelihoodVsRelevanceData,
     timelineData,
   };
 };

@@ -4,11 +4,13 @@ import { Card, CardHeader, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { X } from 'lucide-react';
 import { FilterSelect } from './FilterSelect';
-import { IntensityChart, LikelihoodVsRelevanceChart, SectorDistributionChart, TimelineChart } from './ChartComponents';
+import { TopicDistributionChart, LikelihoodVsRelevanceChart, SectorDistributionChart, TimelineChart } from './ChartComponents';
 import { LoadingSpinner } from './LoadingSpinner';
 import { useFilteredData } from './hooks/useFilteredData';
 import { useChartData } from './hooks/useChartData';
 import { DataItem } from '../../types';
+import { AnalyticsCards } from '../AnalyticsCards';
+import { AnalyticsData } from '../../utils/AnalyticsData';
 
 const ChartsGroup: React.FC<{ data: DataItem[] }> = ({ data }) => {
   const {
@@ -23,11 +25,15 @@ const ChartsGroup: React.FC<{ data: DataItem[] }> = ({ data }) => {
   } = useFilteredData(data);
 
   const {
-    intensityData,
+    topicDistributionData,
     likelihoodVsRelevanceData,
     sectorDistributionData,
     timelineData,
   } = useChartData(filteredData);
+
+  const {
+    analyticsData,
+  } = AnalyticsData(data)
 
   const renderChart = (title: string, ChartComponent: React.FC<{ data: any[] }>, chartData: any[]) => (
     <Card>
@@ -44,6 +50,7 @@ const ChartsGroup: React.FC<{ data: DataItem[] }> = ({ data }) => {
 
   return (
     <div className="">
+      <AnalyticsCards {...analyticsData} />
       <motion.div
         className="grid grid-cols-4 gap-4 mb-4"
         initial={{ opacity: 0, y: -20 }}
@@ -72,9 +79,9 @@ const ChartsGroup: React.FC<{ data: DataItem[] }> = ({ data }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        {renderChart("Top 10 Topics by Intensity", IntensityChart, intensityData)}
+        {renderChart("Top 10 Topics Distribution", TopicDistributionChart, topicDistributionData)}
         {renderChart("Likelihood vs Relevance", LikelihoodVsRelevanceChart, likelihoodVsRelevanceData)}
-        {renderChart("Sector Distribution", SectorDistributionChart, sectorDistributionData)}
+        {renderChart("Top 7 Sector Distribution", SectorDistributionChart, sectorDistributionData)}
         {renderChart("Timeline", TimelineChart, timelineData)}
       </motion.div>
     </div>
