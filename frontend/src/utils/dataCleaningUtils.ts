@@ -15,15 +15,6 @@ function cleanData(data: DataItem[]): DataItem[] {
       updatedItem.region = getRegionFromCountry(updatedItem.country) || '';
     }
 
-    // Clean start_year and end_year fields
-    if (!item.start_year || !item.end_year) {
-      const years = extractYears(item.insight) || extractYears(item.title);
-      if (years) {
-        updatedItem.start_year = updatedItem.start_year || years.start;
-        updatedItem.end_year = updatedItem.end_year || years.end;
-      }
-    }
-
     // Clean sector field
     if (!item.sector) {
       updatedItem.sector = extractSector(item.insight) || extractSector(item.title) || '';
@@ -40,18 +31,6 @@ function extractCountry(text: string): string | null {
 
 function getRegionFromCountry(country: string): string | null {
   return regionMap[country] || null;
-}
-
-function extractYears(text: string): {start: string, end: string} | null {
-  const yearRegex = /\b(19|20)\d{2}\b/g;
-  const years = text.match(yearRegex);
-  if (years && years.length > 0) {
-    return {
-      start: years[0],
-      end: years[years.length - 1]
-    };
-  }
-  return null;
 }
 
 function extractSector(text: string): string | null {
